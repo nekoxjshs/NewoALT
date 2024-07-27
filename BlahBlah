@@ -100,6 +100,11 @@ local function Drop(Type)
 	end
 end
 
+local function handleRedeemCommand(code)
+    local localPlayer = game.Players.LocalPlayer
+    game:GetService("ReplicatedStorage").MainEvent:FireServer("EnterPromoCode", code)
+end
+
 local function AirLock(Type)
 	if CmdSettings["AirLock"] == nil and Type == true then
 		local BP = Variables["Player"].Character.HumanoidRootPart:FindFirstChild("AirLockBP")
@@ -639,7 +644,14 @@ local function Initiate()
 						end
 					end
 				end
-			elseif Args[1] == ".stopaura" then
+			elseif command:sub(1, #getgenv().prefix + 6) == getgenv().prefix .. "redeem" then
+            local code = command:sub(#getgenv().prefix + 8)
+            handleRedeemCommand(code)
+        end
+    end
+end
+
+                           elseif Args[1] == ".stopaura" then
 				CmdSettings["Aura"] = nil
 			elseif Args[1] == ".cdrop" and Args[2] ~= nil and not CmdSettings["CustomDrop"] then
 				local Number = GetNumberFromText(Args[2]) 
