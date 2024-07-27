@@ -1,8 +1,0 @@
-
-end
-
-Services["Players"].PlayerAdded:Connect(function(Player)
-	if Player.Name == Variables["HostUser"] then
-		Initiate()
-	end
-end)
